@@ -4,16 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comments</title>
+    <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            align-items: center;
+        }
+        li > * {
+            margin-right: 10px;
+        }
+        form {
+            display: inline;
+        }
+        button {
+            margin: 0;
+            padding: 0;
+            border: none;
+            background: none;
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>All comments</h1>
     <ul>
         <% for (let i of comments) { %>
-            <li><%=i.comment %>-<b><%=i.username %></b>
-            <a href="comment/show/<%=i.id%>">Details</a>
-            <a href="comment/show/<%=i.id%>/edit">Update comment</a>
+            <li>
+                <%=i.comment %> - <b><%=i.username %></b>
+                <a href="comment/show/<%=i.id%>">Details</a>
+                <a href="comment/show/<%=i.id%>/edit">Update comment</a>
+                <form method="post" action="/comment/<%=i.id%>?_method=DELETE">
+                    <button>Delete</button>
+                </form>
             </li>
-            <% }%>
+        <% } %>
     </ul>
     <a href="comment/new">Click to add comment</a>
 </body>

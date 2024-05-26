@@ -5,7 +5,7 @@ var methodOverride = require('method-override')
 const { v4: uuid } = require('uuid');
 
 
-const comments = [
+var comments = [
     { id: uuid(), username: 'shriram', comment: "hello boss" },
     { id: uuid(), username: 'Tarunes', comment: "hello bro" },
     { id: uuid(), username: 'GJ', comment: "Okavie kotho" },
@@ -65,6 +65,12 @@ app.patch("/comment/:id", (req, res) => {
     foundComment.comment = newCommentText;
     res.redirect("/comment");
 });
+
+app.delete("/comment/:id",(req,res)=>{
+    const {id}=req.params;
+    comments = comments.filter(c => c.id !=id)
+    res.redirect("/comment")
+})
 
 
 app.get("/hello",(req,res)=>{

@@ -1,7 +1,9 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+var methodOverride = require('method-override')
 const { v4: uuid } = require('uuid');
+
 
 const comments = [
     { id: uuid(), username: 'shriram', comment: "hello boss" },
@@ -10,6 +12,8 @@ const comments = [
     { id: uuid(), username: 'pragadessh', comment: "done !!" },
 ];
 
+
+app.use(methodOverride('_method'))
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -42,10 +46,10 @@ app.get("/comment/show/:id", (req, res) => {
     res.render("show", { comment });
 });
 
-app.get("/comment/updateform/:id",(req,res)=>{
-    const id=req.params;
-    const comment = comments.find(c => c.id === id);
-    res.render("update",{comments})
+app.get("/comment/show/:id/edit",(req,res)=>{
+    const {id}=req.params;
+    const i = comments.find(c => c.id === id);
+    res.render("update",{i})
 })
 
 app.patch("/comment/:id", (req, res) => {
@@ -61,6 +65,13 @@ app.patch("/comment/:id", (req, res) => {
     foundComment.comment = newCommentText;
     res.redirect("/comment");
 });
+
+
+app.get("/hello",(req,res)=>{
+    const {name,number}=req.query;
+    res.send(`name= ${name} ,number= ${number}`)
+})
+
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");

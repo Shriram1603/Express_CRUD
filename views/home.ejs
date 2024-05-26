@@ -11,7 +11,7 @@
         <% for (let i of comments) { %>
             <li><%=i.comment %>-<b><%=i.username %></b>
             <a href="comment/show/<%=i.id%>">Details</a>
-            <a href="comment/updateform/<%=i.id%>">Update comment</a>
+            <a href="comment/show/<%=i.id%>/edit">Update comment</a>
             </li>
             <% }%>
     </ul>
